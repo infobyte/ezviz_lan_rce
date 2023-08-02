@@ -20,13 +20,18 @@ RUN apt-get -y install texinfo \
         libmpfr-dev \
         libgmp-dev \
         libexpat1-dev
-        # libunwind-dev \
-        # libpython3.10-dev \
-        # python3.10-distutils
 
 WORKDIR /root
+COPY src src
 RUN curl -k -o gdb.tar.gz https://ftp.gnu.org/gnu/gdb/gdb-7.7.1.tar.gz
 RUN tar -xvzf gdb.tar.gz
-RUN mkdir output
-COPY build.sh /root/gdb-7.7.1/gdb/gdbserver/
-RUN chmod +x /root/gdb-7.7.1/gdb/gdbserver/build.sh
+RUN rm gdb.tar.gz
+COPY build_gdb.sh /root/gdb-7.7.1/gdb/gdbserver/
+RUN chmod +x /root/gdb-7.7.1/gdb/gdbserver/build_gdb.sh
+WORKDIR /root/gdb-7.7.1/gdb/gdbserver
+RUN ./build_gdb.sh
+RUN mv gdbserver /root
+WORKDIR /root/src
+RUN make
+RUN mv -t /root x t r
+WORKDIR /root

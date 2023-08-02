@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ./configure \
     --host="arm-linux-gnueabi" \
     --enable-gdbserver \
@@ -14,4 +16,3 @@
     LDFLAGS="-static -static-libstdc++"
 
 make
-# make install
